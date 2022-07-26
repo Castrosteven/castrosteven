@@ -28,9 +28,9 @@ export const Contact = () => {
       <div className="w-full mt-20 mb-20 flex items-center justify-center">
         <form
           action=""
-          className="md:w-1/2 h-full pt-10 pb-10 bg-white rounded-md flex flex-col p-5 gap-5"
+          className="md:w-1/2  w-full h-full pt-10 pb-10 bg-white rounded-md flex flex-col p-5 gap-5"
         >
-          <div className="flex gap-10">
+          <div className="flex flex-wrap gap-10">
             <Input
               label="Full Name"
               placeholder="John Doe"
