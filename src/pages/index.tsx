@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import Script from "next/script";
+
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -10,6 +12,20 @@ const Home: NextPage = () => {
   const router = useRouter();
   return (
     <div className="h-full">
+      <div className="container">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=UA-144162982-1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'UA-144162982-1');`}
+        </Script>
+      </div>
       <Head>
         <title>Castrosteven</title>
         <meta name="description" content="Castro Steven Web Developer" />
