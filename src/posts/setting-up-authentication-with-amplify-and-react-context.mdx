@@ -1,0 +1,111 @@
+---
+title: Setting Up Authentication with Amplify and React Context
+seoTitle: Setting Up Authentication with Amplify and React Context
+abstract: Creating Email and Password signup with AWS Cognito
+slug : setting-up-authentication-with-amplify-and-react-context
+isPublished: true
+publishedOn: 2021-04-20T09:15:00-0400
+layout: Article
+---
+
+
+# Setting Up Authentication with Amplify and React Context
+
+We are looking to setup Authentication in for our React JS Application. We are going to set up a Authentication with Email and Password using AWS Amplify and React JS.
+To Start up we are are going to create our client side project using the Create React App. 
+
+Then we are going to initilize our cloud project using the AWS CLI. 
+
+Then we are going to create our pages for application
+
+/profile
+/settings
+/login
+/verify-password
+/forgot
+/signup
+
+Set up React Router to navigate between pages and set up Authenacation Guards
+
+Set up A custom Authencation Hook to manage our Login,Signup, Signup, Pasword Forgot and Password Reset
+
+Setting up a User Context Provider to wrap our application and have access to auth state.
+
+Set up 3 States Authenticated,NotAuthencicated,Loading
+
+Create Custom UI Components 
+Button
+Text Input
+
+
+```typescript:src/pages/profile/index.ts
+import React from "react";
+
+export const Profile = () => {
+  return <div>Profile Page</div>;
+};
+
+```
+
+Now we can import this button dirrectly from the this path but it's better to create a single `index.ts`` file to export all your components so you have a single place to import them all.
+This makes refactoring much easier down the line if need be.
+
+```typescript:src/components/UI/index.ts
+import Button from "../Button";
+import Paragraph from "../Paragraph"; // When you create more components down the line
+export { Button, Paragraph };
+```
+
+To use this component in your application we can import it like so,
+We can use all the same props you would pass to your regular button.
+
+```typescript:src/pages/index.ts
+import type { NextPage } from "next";
+import { Button } from "../components/UI";
+const Home: NextPage = () => {
+  return (
+    <div>
+      <Button
+        type="button"
+        id="button"
+        name="My button"
+        onClick={() => {}}
+        disabled={false}
+      >
+        Hello World
+      </Button>
+    </div>
+  );
+};
+export default Home;
+```
+
+The HTML Markup output of this component to the DOM will be like so.
+
+```html
+<button
+  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight 
+  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg 
+  focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+  active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+  type="button"
+  id="button"
+  name="button"
+>
+  <p class="font-bold">Hello World</p>
+</button>
+```
+
+The final Product
+
+<ComponentDisplayer>
+  <Button
+    type="button"
+    id="button"
+    name="button"
+    onClick={() => {}}
+    disabled={false}
+  >
+    Hello World
+  </Button>
+</ComponentDisplayer>

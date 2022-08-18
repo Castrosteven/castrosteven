@@ -1,0 +1,105 @@
+---
+title: Building reusable components, using Typescript, React and Tailwind CSS
+seoTitle: Building reusable components, using Typescript, React and Tailwind CSS
+abstract: Building a simple button component
+slug : building-reusable-components-using-typescript-react-and-tailwind-css
+isPublished: true
+publishedOn: 2021-04-20T09:15:00-0400
+layout: Article
+---
+
+
+# Building reusable components, using Typescript, React and Tailwind CSS
+
+Start by creating a folder in the `src/components` directory. (or wherever you like to keep your components)
+I'm going to call this folder `Button`` and inside create and index.tsx file. (You can also just call it Button.tsx).
+
+In here we are going to create a functional component that will return an HTML Button element as JSX.
+
+This Button component will take props, that I've extended from the `ButtonHTMLAttributes` which is imported from the reactjs library.
+This interface takes a `<T>` also known as a [Generics Decleration](https://www.typescriptlang.org/docs/handbook/2/generics.html).
+Here will pass the [HTMLButtonElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement) interface.
+This will give access to all the props from the HTML Element , and we use `...rest` aka [Rest Parameters](https://www.typescriptlang.org/docs/handbook/2/functions.html#rest-parameters-and-arguments)
+to pass down all those props to button.
+
+```typescript:src/components/UI/Button/index.ts
+import { ButtonHTMLAttributes } from "react";
+
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
+const Button = ({ ...rest }: Props) => {
+  return (
+    <button
+      className="inline-block px-6 py-2.5 bg-blue-600 text-white 
+      font-medium text-xs leading-tight uppercase rounded shadow-md 
+      hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg 
+      focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg 
+      transition duration-150 ease-in-out"
+      {...rest}
+    />
+  );
+};
+export default Button;
+```
+
+Now we can import this button dirrectly from the this path but it's better to create a single `index.ts`` file to export all your components so you have a single place to import them all.
+This makes refactoring much easier down the line if need be.
+
+```typescript:src/components/UI/index.ts
+import Button from "../Button";
+import Paragraph from "../Paragraph"; // When you create more components down the line
+export { Button, Paragraph };
+```
+
+To use this component in your application we can import it like so,
+We can use all the same props you would pass to your regular button.
+
+```typescript:src/pages/index.ts
+import type { NextPage } from "next";
+import { Button } from "../components/UI";
+const Home: NextPage = () => {
+  return (
+    <div>
+      <Button
+        type="button"
+        id="button"
+        name="My button"
+        onClick={() => {}}
+        disabled={false}
+      >
+        Hello World
+      </Button>
+    </div>
+  );
+};
+export default Home;
+```
+
+The HTML Markup output of this component to the DOM will be like so.
+
+```html
+<button
+  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight 
+  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg 
+  focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+  active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+  type="button"
+  id="button"
+  name="button"
+>
+  <p class="font-bold">Hello World</p>
+</button>
+```
+
+The final Product
+
+<ComponentDisplayer>
+  <Button
+    type="button"
+    id="button"
+    name="button"
+    onClick={() => {}}
+    disabled={false}
+  >
+    Hello World
+  </Button>
+</ComponentDisplayer>

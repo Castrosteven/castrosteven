@@ -44,7 +44,7 @@ const Home: NextPage = () => {
         <div>
           <button
             onClick={() => {
-              router.push("/blog");
+              router.push("/posts");
             }}
             className="block bg-yellow-500 w-40 mt-2 text-black font-bold p-2 rounded-md hover:bg-yellow-600 hover:text-white"
           >
